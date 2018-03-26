@@ -10,10 +10,14 @@ import { Router } from '@angular/router';
 })
 export class NavComponent implements OnInit {
   model: any = {};
+  userName: string;
 
   constructor(private authService: AuthService, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {
+    if (this.authService.decodedToken) {
+      this.userName = this.authService.decodedToken.unique_name;
+    }
   }
 
   login() {
