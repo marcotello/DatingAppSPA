@@ -19,9 +19,10 @@ export class NavComponent implements OnInit {
     if (this.authService.decodedToken) {
       this.userName = this.authService.decodedToken.unique_name;
     }
-    if (this.authService.currentUser.photoURL) {
+    /*if (this.authService.currentUser.photoURL) {
       this.photoUrl = this.authService.currentUser.photoURL;
-    }
+    }*/
+    this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
   }
 
   login() {
