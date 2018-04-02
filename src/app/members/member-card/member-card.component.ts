@@ -8,10 +8,14 @@ import { User } from '../../_models/User';
 })
 export class MemberCardComponent implements OnInit {
   @Input() user: User;
+  defaultPhotoUrl = '../../../assets/user.png';
 
   constructor() { }
 
   ngOnInit() {
+    if (this.user.photoURL === null) {
+      this.user.photoURL = this.defaultPhotoUrl;
+    }
   }
 
 }

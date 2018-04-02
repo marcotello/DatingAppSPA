@@ -10,12 +10,13 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class AuthService {
+    photoUrlString = '../../assets/user.png';
     baseURL = 'http://localhost:5000/api/auth/';
     userToken: any;
     decodedToken: any;
     currentUser: User;
     jwtHelper: JwtHelper = new JwtHelper();
-    private photoUrl = new BehaviorSubject<string>('../../assets/user.png');
+    private photoUrl = new BehaviorSubject<string>(this.photoUrlString);
     currentPhotoUrl = this.photoUrl.asObservable();
 
     constructor(private http: Http) { }
@@ -33,13 +34,17 @@ export class AuthService {
                 this.decodedToken = this.jwtHelper.decodeToken(user.tokenString);
                 this.currentUser = user.user;
                 this.userToken = user.tokenString;
-                this.changeMemberPhoto(this.currentUser.photoURL);
+                if (this.currentUser.photoURL !== null) {
+                    this.changeMemberPhoto(this.currentUser.photoURL);
+                } else {
+                    this.changeMemberPhoto(this.photoUrlString);
+                }
             }
         }).catch(this.handleError);
     }
 
-    register(model: any) {
-        return this.http.post(this.baseURL + 'register', model, this.requestOptions()).catch(this.handleError);
+    register(user: User) {
+        return this.http.post(this.baseURL + 'register', user, this.requestOptions()).catch(this.handleError);
     }
 
     loggedIn() {

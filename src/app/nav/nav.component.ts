@@ -17,7 +17,7 @@ export class NavComponent implements OnInit {
 
   ngOnInit() {
     if (this.authService.decodedToken) {
-      this.userName = this.authService.decodedToken.unique_name;
+      this.userName = this.authService.currentUser.knownAs;
     }
     /*if (this.authService.currentUser.photoURL) {
       this.photoUrl = this.authService.currentUser.photoURL;
@@ -31,6 +31,7 @@ export class NavComponent implements OnInit {
     }, error => {
       this.alertify.error('Failed to login');
     }, () => {
+      this.userName = this.authService.currentUser.knownAs;
       this.router.navigate(['/members']);
     });
   }

@@ -15,12 +15,16 @@ export class MemberDetailComponent implements OnInit {
   user: User;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
+  defaultPhotoUrl = '../../../assets/user.png';
 
   constructor(private userService: UserService, private alertify: AlertifyService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.user = data['user'];
+      if (this.user.photoURL === null) {
+        this.user.photoURL = this.defaultPhotoUrl;
+      }
     });
 
     this.galleryOptions = [

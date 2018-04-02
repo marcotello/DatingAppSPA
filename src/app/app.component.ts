@@ -11,6 +11,7 @@ import { User } from './_models/User';
 export class AppComponent implements OnInit{
   title = 'dating app';
   jwtHelper: JwtHelper = new JwtHelper();
+  photoUrl = '../assets/user.png';
 
   constructor(private authService: AuthService) {
 
@@ -24,7 +25,11 @@ export class AppComponent implements OnInit{
     }
     if (user) {
       this.authService.currentUser = user;
-      this.authService.changeMemberPhoto(user.photoURL);
+      if (this.authService.currentUser.photoURL !== null) {
+        this.authService.changeMemberPhoto(user.photoURL);
+      } else {
+        this.authService.changeMemberPhoto(this.photoUrl);
+      }
     }
   }
 }
