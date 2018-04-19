@@ -30,9 +30,9 @@
       <div class="pull-right">
         <label style="margin-right: 10px">Order By: </label>
         <div class="btn-group">
-          <button type="button" name="orderBy" [(ngModel)]="userParams.orderBy" (click)="loadUsers()"
+          <button type="button" name="orderBy" [(ngModel)]="userParams.orderBy" (click)="loadUsers('lastActive')"
              class="btn btn-primary" btnRadio="lastActive">Last Active</button>
-          <button type="button" name="orderBy" [(ngModel)]="userParams.orderBy" (click)="loadUsers()"
+          <button type="button" name="orderBy" [(ngModel)]="userParams.orderBy" (click)="loadUsers('created')"
              class="btn btn-primary" btnRadio="created">Newest Members</button>
         </div>
       </div>

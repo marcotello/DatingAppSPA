@@ -31,7 +31,8 @@ export class MemberListComponent implements OnInit {
     this.userParams.oderBy = 'lastActive';
   }
 
-  loadUsers() {
+  loadUsers(orderBy: string) {
+    this.userParams.oderBy = orderBy;
     console.log(this.userParams.oderBy);
     this.userService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage, this.userParams)
         .subscribe((res: PaginatedResult<User[]>) => {
@@ -47,12 +48,12 @@ export class MemberListComponent implements OnInit {
     this.userParams.minAge = 18;
     this.userParams.maxAge = 99;
     this.userParams.oderBy = 'lastActive';
-    this.loadUsers();
+    this.loadUsers(this.userParams.oderBy);
   }
 
   pageChanged(event: any): void {
     this.pagination.currentPage = event.page;
-    this.loadUsers();
+    this.loadUsers(this.userParams.oderBy);
   }
 }
 
